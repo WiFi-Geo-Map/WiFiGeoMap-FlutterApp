@@ -14,7 +14,7 @@ class ControllerPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const LoadingPage();
+            return const LoadingPage(isNeeded: true,);
           } else if (snapshot.hasData) {
             return const HomePage();
           } else if (snapshot.hasError) {

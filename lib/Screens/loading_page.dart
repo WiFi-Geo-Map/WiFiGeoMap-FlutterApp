@@ -5,7 +5,8 @@ import 'package:wifi_geo_map/utils/custom_sizedbox.dart';
 import 'package:wifi_geo_map/utils/custom_text.dart';
 
 class LoadingPage extends StatefulWidget {
-  const LoadingPage({super.key});
+  final bool isNeeded;
+  const LoadingPage({super.key,required this.isNeeded});
 
   @override
   State<LoadingPage> createState() => _LoadingPageState();
@@ -21,6 +22,7 @@ class _LoadingPageState extends State<LoadingPage> {
     Icons.wifi,
     Icons.wifi_password
   ];
+  
 
   @override
   void initState() {
@@ -39,6 +41,8 @@ class _LoadingPageState extends State<LoadingPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    final bool isNeeded = widget.isNeeded;
     return Material(
       child: Container(
         decoration: const BoxDecoration(
@@ -48,7 +52,7 @@ class _LoadingPageState extends State<LoadingPage> {
           ),
         ),
         child: Column(children: [
-          const CustomSizedBox(height: 0.17, width: 1),
+            isNeeded?const CustomSizedBox(height:0.17, width:  1,):const CustomSizedBox(height:0.04, width:  0,),
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.1),
