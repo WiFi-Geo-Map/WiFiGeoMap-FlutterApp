@@ -1,7 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:network_info_plus/network_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:wifi_geo_map/Screens/skeleton_page.dart';
 import 'package:wifi_geo_map/provider/controller.dart';
@@ -20,6 +25,15 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   final user = FirebaseAuth.instance.currentUser!;
   ControllerPage controll() => const ControllerPage();
+  String _wifi = 'Unknown';
+  String _bssid = 'Unknown';
+  final NetworkInfo _networkInfo = NetworkInfo();
+
+  @override
+  void initState() {
+    super.initState();
+    _initNetworkInfo();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,39 +83,48 @@ class _UserPageState extends State<UserPage> {
                       ),
                       Padding(
                         padding: EdgeInsets.only(top: 8.0, left: 18.0),
-                        child: CustomText(text: 'CLH2 Grid(x,y)', weight: FontWeight.w600),
+                        child: CustomText(
+                            text: 'CLH2 Grid(x,y)', weight: FontWeight.w600),
                       ),
-
                     ],
                   ),
                 ),
                 const CustomSizedBox(height: 0.05, width: 1),
-                const CustomContainer(
+                CustomContainer(
                   height: 0.18,
                   width: 0.8,
-                  color: Color(0xFF93D3D3),
+                  color: const Color(0xFFFF8183),
                   child: Column(
                     children: [
-                      Padding(
+                      const Padding(
                         padding: EdgeInsets.only(top: 8.0),
                         child: CustomText(text: 'Connected To'),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(top: 8.0, left: 18.0),
+                        padding: const EdgeInsets.only(top: 8.0, left: 18.0),
                         child: Column(
                           children: [
-                            CustomText(text: 'Wi-Fi: ',size: 25, weight: FontWeight.w600),
-                            CustomSizedBox(height: 0.01, width: 0.5),
-                            CustomText(text: 'BSSID: ',size: 25, weight: FontWeight.w600),
+                            CustomText(
+                                text: 'Wi-Fi: $_wifi',
+                                size: 20,
+                                weight: FontWeight.w600),
+                            const CustomSizedBox(height: 0.01, width: 0.5),
+                            CustomText(
+                                text: 'BSSID: $_bssid',
+                                size: 19,
+                                weight: FontWeight.w600),
                           ],
                         ),
                       ),
-
                     ],
                   ),
                 ),
-                const CustomSizedBox(height: 0.05, width: 1),
-
+                const CustomSizedBox(height: 0.015, width: 1),
+                ElevatedButton(
+                  onPressed: _initNetworkInfo,
+                  child: const Text("Refresh"),
+                ),
+                const CustomSizedBox(height: 0.03, width: 1),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -134,10 +157,40 @@ class _UserPageState extends State<UserPage> {
                     label: const CustomText(text: " Log out", size: 20),
                   ),
                 ),
-                const CustomSizedBox(height: 0.05, width: 1),
+                const CustomSizedBox(height: 0.03, width: 1),
               ],
             )
           ]),
         ));
+  }
+
+  Future<void> _initNetworkInfo() async {
+    String? wifiName, wifiBSSID;
+
+    // Request location permissions
+    final locationStatus = await Permission.location.request();
+    if (locationStatus.isGranted) {
+      try {
+        if (!kIsWeb && (Platform.isIOS || Platform.isAndroid)) {
+          wifiName = await _networkInfo.getWifiName();
+          wifiBSSID = await _networkInfo.getWifiBSSID();
+        } else {
+          wifiName = await _networkInfo.getWifiName();
+          wifiBSSID = await _networkInfo.getWifiBSSID();
+        }
+      } on PlatformException catch (e) {
+        stdout.writeln(e.toString());
+        wifiName = 'Failed to get Wifi Name';
+        wifiBSSID = 'Failed to get Wifi BSSID';
+      }
+    } else {
+      wifiName = 'Location permission not granted';
+      wifiBSSID = 'Location permission not granted';
+    }
+
+    setState(() {
+      _wifi = wifiName!;
+      _bssid = wifiBSSID!;
+    });
   }
 }
