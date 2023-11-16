@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "715154792144",
+    "project_id": "wifi-geo-map",
+    "storage_bucket": "wifi-geo-map.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715154792144:android:cbec5cdac74030d0c448d5",
+        "android_client_info": {
+          "package_name": "com.example.wifi_geo_map"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuEF45f4Xgn0Z0VlC3iCKPAL6aEjz0gaM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
