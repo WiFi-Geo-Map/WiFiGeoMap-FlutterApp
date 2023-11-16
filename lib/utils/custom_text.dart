@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class CustomText extends StatelessWidget {
@@ -9,13 +8,13 @@ class CustomText extends StatelessWidget {
   final TextAlign align;
 
   const CustomText({
-    required Key key,
+    super.key,
     required this.text,
-    this.size = 16,
-    this.color = Colors.black,
+    this.size = 30,
+    this.color = const Color(0xFF1F2D33),
     this.weight = FontWeight.normal,
     this.align = TextAlign.left,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +25,8 @@ class CustomText extends StatelessWidget {
         fontSize: size,
         color: color,
         fontWeight: weight,
+        fontFamily: 'JetBrains Mono',
+        fontStyle: FontStyle.normal,
       ),
     );
   }
