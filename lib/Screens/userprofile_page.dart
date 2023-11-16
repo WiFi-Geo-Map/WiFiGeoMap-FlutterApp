@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:wifi_geo_map/Screens/skeleton_page.dart';
 import 'package:wifi_geo_map/provider/controller.dart';
 import 'package:wifi_geo_map/provider/googel_signin.dart';
+import 'package:wifi_geo_map/utils/custom_container.dart';
 import 'package:wifi_geo_map/utils/custom_sizedbox.dart';
 import 'package:wifi_geo_map/utils/custom_text.dart';
 
@@ -56,8 +57,51 @@ class _UserPageState extends State<UserPage> {
                   height: 0.05,
                   width: 1,
                 ),
-        
-  
+                const CustomContainer(
+                  height: 0.14,
+                  width: 0.8,
+                  color: Color(0xFF93D3D3),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: CustomText(text: 'Your Loaction'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, left: 18.0),
+                        child: CustomText(text: 'CLH2 Grid(x,y)', weight: FontWeight.w600),
+                      ),
+
+                    ],
+                  ),
+                ),
+                const CustomSizedBox(height: 0.05, width: 1),
+                const CustomContainer(
+                  height: 0.18,
+                  width: 0.8,
+                  color: Color(0xFF93D3D3),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0),
+                        child: CustomText(text: 'Connected To'),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 8.0, left: 18.0),
+                        child: Column(
+                          children: [
+                            CustomText(text: 'Wi-Fi: ',size: 25, weight: FontWeight.w600),
+                            CustomSizedBox(height: 0.01, width: 0.5),
+                            CustomText(text: 'BSSID: ',size: 25, weight: FontWeight.w600),
+                          ],
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+                const CustomSizedBox(height: 0.05, width: 1),
+
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -74,7 +118,8 @@ class _UserPageState extends State<UserPage> {
                         shadowColor: Colors.black),
                     icon: const Icon(Icons.logout, size: 30),
                     onPressed: () {
-                      final provider = Provider.of<GoogleSignInProvider>(context,
+                      final provider = Provider.of<GoogleSignInProvider>(
+                          context,
                           listen: false);
                       provider.logout();
                       Timer(const Duration(milliseconds: 900), () {
@@ -89,6 +134,7 @@ class _UserPageState extends State<UserPage> {
                     label: const CustomText(text: " Log out", size: 20),
                   ),
                 ),
+                const CustomSizedBox(height: 0.05, width: 1),
               ],
             )
           ]),
