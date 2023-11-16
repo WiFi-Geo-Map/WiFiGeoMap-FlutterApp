@@ -19,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
     Icons.wifi,
     Icons.wifi_1_bar,
     Icons.wifi_2_bar,
+    Icons.wifi,
     Icons.wifi_password
   ];
 
@@ -52,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
           Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.1),
-            child: const CustomText(text: "Welcome Back!", size: 60),
+            child: const CustomText(text: "Welcome User!", size: 60),
           ),
           const CustomSizedBox(height: 0.1, width: 1),
           Padding(
@@ -75,19 +76,28 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          ElevatedButton.icon(
-            style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
-                foregroundColor: Colors.black,
-                minimumSize: Size(MediaQuery.of(context).size.width * 0.8, 50),
-                shadowColor: Colors.black),
-            icon: const Icon(Icons.g_mobiledata_outlined, size: 50),
-            onPressed: () {
-              final provider =
-                  Provider.of<GoogleSignInProvider>(context, listen: false);
-              provider.googleLogin();
-            },
-            label: const CustomText(text: "Google Sign-in", size: 22),
+          Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color(0xFF000000),
+                width: 3,
+              ),
+            ),
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                  minimumSize:
+                      Size(MediaQuery.of(context).size.width * 0.8, 50),
+                  shadowColor: Colors.black),
+              icon: const Icon(Icons.g_mobiledata_outlined, size: 50),
+              onPressed: () {
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.googleLogin();
+              },
+              label: const CustomText(text: "Google Sign-in", size: 20),
+            ),
           )
         ]),
       ),

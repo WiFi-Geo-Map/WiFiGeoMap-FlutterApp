@@ -18,6 +18,7 @@ class _LoadingPageState extends State<LoadingPage> {
     Icons.wifi,
     Icons.wifi_1_bar,
     Icons.wifi_2_bar,
+    Icons.wifi,
     Icons.wifi_password
   ];
 

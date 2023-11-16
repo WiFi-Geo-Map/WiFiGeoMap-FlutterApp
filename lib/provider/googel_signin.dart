@@ -27,7 +27,6 @@ class GoogleSignInProvider extends ChangeNotifier {
       User? user = userCredential.user;
 
       if (user != null) {
-        // Check if the user's email domain is allowed
         if (user.email != null && user.email!.endsWith('@iith.ac.in')) {
           if (userCredential.additionalUserInfo!.isNewUser) {
             await _firestore.collection("Users").doc(user.uid).set({
@@ -38,7 +37,6 @@ class GoogleSignInProvider extends ChangeNotifier {
             });
           }
         } else {
-          // If the domain is not allowed, sign out the user
           await googleSignIn.signOut();
           await FirebaseAuth.instance.signOut();
           return;
