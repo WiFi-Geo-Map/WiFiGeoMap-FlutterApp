@@ -32,8 +32,8 @@ class _SkeletonPageState extends State<SkeletonPage> {
             ),
           ),
           child: Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * 0.08,
+            padding: EdgeInsets.symmetric(
+              vertical: MediaQuery.of(context).size.height * 0.08,
             ),
             child: Column(
               children: [
@@ -73,7 +73,7 @@ class _SkeletonPageState extends State<SkeletonPage> {
                       : const CustomSizedBox(height: 0.07, width: 1),
                 ),
                 CustomSizedBox(
-                  height: 0.73,
+                  height: 0.74,
                   width: 1,
                   child: customChild,
                 ),
