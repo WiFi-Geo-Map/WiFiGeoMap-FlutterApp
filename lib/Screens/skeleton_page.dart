@@ -50,22 +50,31 @@ class _SkeletonPageState extends State<SkeletonPage> {
                               width: 3,
                             ),
                           ),
-                          child: TextField(
-                            controller: searchController,
-                            decoration: const InputDecoration(
-                                hintText: '  Search for a user',
-                                hintStyle: TextStyle(
-                                  fontFamily: 'JetBrains Mono',
-                                  fontStyle: FontStyle.normal,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                ),
-                                border: InputBorder.none,
-                                suffixIcon: Icon(
-                                  Icons.search,
-                                  size: 30,
-                                  color: Color(0xFF000000),
-                                )),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left:20.0),
+                            child: TextField(
+                              style: const TextStyle(
+                                fontFamily: 'JetBrains Mono',
+                                fontStyle: FontStyle.normal,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                              controller: searchController,
+                              decoration: const InputDecoration(
+                                  hintText: 'Search for a user',
+                                  hintStyle: TextStyle(
+                                    fontFamily: 'JetBrains Mono',
+                                    fontStyle: FontStyle.normal,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                  border: InputBorder.none,
+                                  suffixIcon: Icon(
+                                    Icons.search,
+                                    size: 30,
+                                    color: Color(0xFF000000),
+                                  )),
+                            ),
                           ),
                         ),
                       )
