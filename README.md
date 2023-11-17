@@ -8,4 +8,4 @@ Download Application for android <a href="https://github.com/White-Devil09/WiFi-
 
 ## Scan QR Code to download Android App
 
-<img src="assests/images/background.png">
+<img src="assests/images/QRcode.jpeg">
