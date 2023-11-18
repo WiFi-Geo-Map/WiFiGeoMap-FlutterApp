@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:wifi_geo_map/Screens/skeleton_page.dart';
@@ -61,11 +60,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    for (WiFiAccessPoint element in accessPoints) {
-      stdout.writeln(element.bssid);
-    }
-
-    return SkeletonPage(
+ 
+     return SkeletonPage(
         isSearching: true,
         child: Padding(
           padding: EdgeInsets.symmetric(
