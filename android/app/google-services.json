@@ -1,26 +1,51 @@
 {
   "project_info": {
-    "project_number": "715154792144",
-    "project_id": "wifi-geo-map",
-    "storage_bucket": "wifi-geo-map.appspot.com"
+    "project_number": "997322582036",
+    "project_id": "wifigeomap",
+    "storage_bucket": "wifigeomap.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:715154792144:android:cbec5cdac74030d0c448d5",
+        "mobilesdk_app_id": "1:997322582036:android:89a26af597ca3ef5cadf01",
         "android_client_info": {
           "package_name": "com.example.wifi_geo_map"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "997322582036-luak3iuk2p39quehsmjs6835pt9u9m8e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.wifi_geo_map",
+            "certificate_hash": "23cbc4768799977ed0fa8b32dbbae87948cd9d22"
+          }
+        },
+        {
+          "client_id": "997322582036-b7ughccc26qfjjtifa9131p83dtufpbj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyBuEF45f4Xgn0Z0VlC3iCKPAL6aEjz0gaM"
+          "current_key": "AIzaSyDq4w4ZEng75Xwbqzul-tnO7sOtbxJUEfc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997322582036-b7ughccc26qfjjtifa9131p83dtufpbj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "997322582036-lbb4mponuseprg0tcrjv44vlmh3vvn0a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.wifiGeoMap"
+              }
+            }
+          ]
         }
       }
     }

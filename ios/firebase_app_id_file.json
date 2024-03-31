@@ -1,7 +1,7 @@
 {
   "file_generated_by": "FlutterFire CLI",
   "purpose": "FirebaseAppID & ProjectID for this Firebase app in this directory",
-  "GOOGLE_APP_ID": "1:715154792144:ios:b9352696fc59ff9fc448d5",
-  "FIREBASE_PROJECT_ID": "wifi-geo-map",
-  "GCM_SENDER_ID": "715154792144"
+  "GOOGLE_APP_ID": "1:997322582036:ios:19f5482eab4591a9cadf01",
+  "FIREBASE_PROJECT_ID": "wifigeomap",
+  "GCM_SENDER_ID": "997322582036"
 }
