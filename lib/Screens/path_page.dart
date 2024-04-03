@@ -1,8 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'provider/googel_signin.dart';
-import 'firebase_options.dart';
 
 class ShortestPathPage extends StatefulWidget {
+  const ShortestPathPage({super.key});
+
   @override
   _ShortestPathPageState createState() => _ShortestPathPageState();
 }
@@ -50,7 +51,7 @@ class _ShortestPathPageState extends State<ShortestPathPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shortest Path'),
+        title: const Text('Shortest Path'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -59,29 +60,29 @@ class _ShortestPathPageState extends State<ShortestPathPage> {
           children: [
             TextField(
               controller: _bs1Controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'BSSID 1',
               ),
             ),
             TextField(
               controller: _inten1Controller,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'inten1',
               ),
             ),
             // Other text fields...
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _processInput,
-              child: Text('Get Shortest Path'),
+              child: const Text('Get Shortest Path'),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             if (_shortestPath.isNotEmpty)
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Shortest Path:'),
-                  SizedBox(height: 8.0),
+                  const Text('Shortest Path:'),
+                  const SizedBox(height: 8.0),
                   ..._shortestPath.map((step) => Text('- $step')).toList(),
                 ],
               ),
