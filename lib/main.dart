@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:wifi_geo_map/Screens/path_page.dart';
 import 'package:wifi_geo_map/provider/controller.dart';
 import 'provider/googel_signin.dart';
 import 'firebase_options.dart';
@@ -9,7 +10,7 @@ import 'package:get/get.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const WiFiGeoMap());
+  runApp(WiFiGeoMap());
 }
 
 class WiFiGeoMap extends StatelessWidget {
@@ -24,7 +25,10 @@ class WiFiGeoMap extends StatelessWidget {
       theme: ThemeData(
         primarySwatch:Colors.blueGrey,
       ),
-      home: const ControllerPage(),
+      // home: const ControllerPage(),
+      home: ShortestPathPage(),
     ),
   );
 }
+
+
