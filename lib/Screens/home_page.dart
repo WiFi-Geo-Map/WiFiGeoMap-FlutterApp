@@ -1,13 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:wifi_geo_map/Screens/path_page.dart';
 import 'package:wifi_geo_map/Screens/skeleton_page.dart';
 import 'package:wifi_geo_map/utils/custom_sizedbox.dart';
 import 'package:wifi_geo_map/utils/custom_text.dart';
 import 'package:wifi_scan/wifi_scan.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -60,38 +61,54 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
- 
-     return SkeletonPage(
-        isSearching: true,
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * 0.08,
-              vertical: MediaQuery.of(context).size.height * 0.03),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const CustomText(
-                  text: 'List of Access Points',
-                  size: 40,
-                ),
-                const CustomSizedBox(height: 0.03, width: 1),
-                Table(
-                  border: TableBorder.symmetric(
-                    outside: const BorderSide(
-                      color: Colors.black,
-                      width: 3,
-                    ),
-                    inside: const BorderSide(
-                      color: Colors.black,
-                      width: 1,
-                    ),
+    return SkeletonPage(
+      isSearching: true,
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.08,
+          vertical: MediaQuery.of(context).size.height * 0.03,
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const CustomText(
+                text: 'List of Access Points',
+                size: 40,
+              ),
+              const CustomSizedBox(height: 0.03, width: 1),
+              Table(
+                border: TableBorder.symmetric(
+                  outside: const BorderSide(
+                    color: Colors.black,
+                    width: 3,
                   ),
-                  children: buildTableRows(),
+                  inside: const BorderSide(
+                    color: Colors.black,
+                    width: 1,
+                  ),
                 ),
-              ],
-            ),
+                children: buildTableRows(),
+              ),
+              const CustomSizedBox(height: 0.05, width: 1),
+              InkWell(
+                onTap: () {
+                  Map<int, List<String>> top3 = buildTop3List();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PathPage(top3: top3,)),
+                  );
+                },
+                child: const Icon(
+                  Icons.location_on,
+                  size: 45,
+                  color: Color(0xFF000000),
+                ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   List<TableRow> buildTableRows() {
@@ -152,5 +169,19 @@ class _HomePageState extends State<HomePage> {
     }
 
     return rows;
+  }
+
+  Map<int, List<String>> buildTop3List() {
+    accessPoints.sort((a, b) => b.level.compareTo(a.level));
+
+    final top3 = accessPoints.take(3).toList();
+    List<String> bssids = [];
+    int strength = 0;
+    for (var ap in top3) {
+      bssids.add(ap.bssid);
+      strength += ap.level;
+    }
+
+    return {strength ~/ 3 : bssids};
   }
 }
