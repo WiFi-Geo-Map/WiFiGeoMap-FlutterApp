@@ -28,13 +28,15 @@ class _PathPageState extends State<PathPage> {
       final val = entry.key;
 
       for (var id in ids) {
-        _snapshot = FirebaseFirestore.instance
-            .collection('regions')
-            .doc('$id$val')
-            .get();
-        final snapshot = await _snapshot;
-        if (snapshot.exists) {
-          return snapshot;
+        for (int i = -5; i < 6; i++) {
+          _snapshot = FirebaseFirestore.instance
+              .collection('regions')
+              .doc('$id${val+i}')
+              .get();
+          final snapshot = await _snapshot;
+          if (snapshot.exists) {
+            return snapshot;
+          }
         }
       }
     }
@@ -132,68 +134,68 @@ class _PathPageState extends State<PathPage> {
   }
 
   @override
-Widget build(BuildContext context) {
-  return SkeletonPage(
-    isSearching: false,
-    child: SingleChildScrollView(
-      child: Column(
-        children: [
-          FutureBuilder<DocumentSnapshot>(
-            future: _snapshot,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                if (!snapshot.hasData || snapshot.data!.data() == null) {
-                  return const Text('No matching starting position found in database.');
+  Widget build(BuildContext context) {
+    return SkeletonPage(
+      isSearching: false,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            FutureBuilder<DocumentSnapshot>(
+              future: _snapshot,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  if (!snapshot.hasData || snapshot.data!.data() == null) {
+                    return const Text(
+                        'No matching starting position found in database.');
+                  }
+                  final data = snapshot.data!.data() as Map<String, dynamic>;
+                  startingPoint = data['region'];
+                  return GridView.builder(
+                    shrinkWrap: true,
+                    itemCount: 4 * 4,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4,
+                    ),
+                    itemBuilder: (BuildContext context, int index) {
+                      final int rowIndex = index ~/ 4;
+                      final int colIndex = index % 4;
+                      final String tileLabel =
+                          String.fromCharCode('A'.codeUnitAt(0) + rowIndex) +
+                              (colIndex + 1).toString();
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            destination = tileLabel;
+                            selectedTiles =
+                                findShortestPath(startingPoint, destination);
+                          });
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          margin: const EdgeInsets.all(2),
+                          color: selectedTiles.contains(tileLabel)
+                              ? Colors.blue
+                              : tileLabel == startingPoint
+                                  ? Colors.green
+                                  : tileLabel == destination
+                                      ? Colors.green
+                                      : Colors.grey[300],
+                          child: Text(tileLabel),
+                        ),
+                      );
+                    },
+                  );
                 }
-                final data = snapshot.data!.data() as Map<String, dynamic>;
-                startingPoint = data['region'];
-                return GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: 4 * 4,
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                  ),
-                  itemBuilder: (BuildContext context, int index) {
-                    final int rowIndex = index ~/ 4;
-                    final int colIndex = index % 4;
-                    final String tileLabel =
-                        String.fromCharCode('A'.codeUnitAt(0) + rowIndex) +
-                            (colIndex + 1).toString();
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          destination = tileLabel;
-                          selectedTiles = findShortestPath(
-                              startingPoint, destination);
-                        });
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(2),
-                        color: selectedTiles.contains(tileLabel)
-                            ? Colors.blue
-                            : tileLabel == startingPoint
-                                ? Colors.green
-                                : tileLabel == destination
-                                    ? Colors.green
-                                    : Colors.grey[300],
-                        child: Text(tileLabel),
-                      ),
-                    );
-                  },
-                );
-              }
-            },
-          ),
-        ],
+              },
+            ),
+          ],
+        ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }
