@@ -28,7 +28,7 @@ class _PathPageState extends State<PathPage> {
       final val = entry.key;
 
       for (var id in ids) {
-        for (int i = -5; i < 6; i++) {
+        for (int i = -10; i < 11; i++) {
           _snapshot = FirebaseFirestore.instance
               .collection('regions')
               .doc('$id${val+i}')
