@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:hexagon/hexagon.dart';
 import 'package:wifi_scan/wifi_scan.dart';
 
 class UserCollectionPage extends StatefulWidget {
-  const UserCollectionPage({Key? key}) : super(key: key);
+  const UserCollectionPage({super.key});
 
   @override
   State<UserCollectionPage> createState() => _UserCollectionPageState();
@@ -73,19 +74,21 @@ class _UserCollectionPageState extends State<UserCollectionPage> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: GridView.count(
-              crossAxisCount: 4, // Change this value as per your requirement
-              children: List.generate(20, (index) {
-                return HoneycombTile(
-                  key: ValueKey(index), // Pass a unique key to each tile
-                  index: index,
-                  isActive: index == _activeTileIndex,
-                  setActiveTileIndex: _setActiveTileIndex,
-                  accessPoints: accessPoints,
-                );
-              }),
-            ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              HexagonOffsetGrid.oddPointy(
+                columns: 8,
+                rows: 8,
+                buildTile: (row, col) => HexagonWidgetBuilder(
+                  color: row+col == _activeTileIndex ? Colors.yellow : Colors.orangeAccent,
+                  elevation: 2,
+                ),
+                buildChild: (col, row) {
+                  return Text('$col, $row');
+                },
+              ),
+            ],
           ),
           const SizedBox(height: 16),
           _buildTop3ListWidget(top3),
@@ -138,12 +141,12 @@ class HoneycombTile extends StatelessWidget {
   final List<WiFiAccessPoint> accessPoints;
 
   const HoneycombTile({
-    Key? key,
+    super.key,
     required this.index,
     required this.isActive,
     required this.setActiveTileIndex,
     required this.accessPoints,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -20,15 +20,16 @@ dependencies:
   cloud_firestore: ^4.13.1
   provider: ^6.1.1
   get: ^4.6.6
-  network_info_plus: ^4.1.0
+  network_info_plus: ^5.0.3
   permission_handler: ^11.0.1
   http: ^1.1.0
+  hexagon: ^0.2.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
 flutter:
 

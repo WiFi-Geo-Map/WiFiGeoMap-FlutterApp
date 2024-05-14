@@ -18,7 +18,7 @@ import 'package:wifi_geo_map/utils/custom_sizedbox.dart';
 import 'package:wifi_geo_map/utils/custom_text.dart';
 
 class UserPage extends StatefulWidget {
-  const UserPage({Key? key}) : super(key: key);
+  const UserPage({super.key});
 
   @override
   State<UserPage> createState() => _UserPageState();

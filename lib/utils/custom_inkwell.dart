@@ -5,10 +5,10 @@ class CustomInkWell extends StatelessWidget {
   final Widget pageName;
 
   const CustomInkWell({
-    Key? key,
+    super.key,
     required this.icon,
     required this.pageName,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

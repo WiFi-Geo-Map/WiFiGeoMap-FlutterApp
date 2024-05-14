@@ -8,7 +8,7 @@ import 'package:wifi_geo_map/utils/custom_text.dart';
 import 'package:wifi_scan/wifi_scan.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
